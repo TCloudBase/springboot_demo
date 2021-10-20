@@ -20,38 +20,8 @@ public class DemoService {
 
 
     @RequestMapping("/")
-    public Map sayHello(@RequestParam(name = "top") int top) throws Exception {
-        System.out.println("top：" + top);
-        if (top >= 10) {
-            throw new Exception("top over 10");
-        }
-
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        URI uri = new URIBuilder("https://i.news.qq.com/trpc.qqnews_web.kv_srv.kv_srv_http_proxy/list")
-                .setParameter("sub_srv_id", "24hours")
-                .setParameter("srv_id", "pc").setParameter("offset", "0").setParameter("limit", String.valueOf(top)).setParameter("strategy", "1")
-                .setParameter("ext", "{\"pool\":[\"top\"],\"is_filter\":7,\"check_type\":true}")
-                .build();
-
-        HttpGet httpGet = new HttpGet(uri);
-
-        CloseableHttpResponse response = null;
-        String content = "";
-        try {
-            response = httpclient.execute(httpGet);
-            if (response.getStatusLine().getStatusCode() == 200) {
-                content = EntityUtils.toString(response.getEntity(), "UTF-8");
-                System.out.println("内容长度：" + content);
-            }
-        } finally {
-            if (response != null) {
-                response.close();
-            }
-            httpclient.close();
-        }
-
-        Gson gson = new Gson();
-        Map map = gson.fromJson(content, Map.class);
-        return map;
+    public String sayHello(@RequestParam(name = "top") int top) throws Exception {
+        
+       return "hello ni Da Ya";
     }
 }
